@@ -4,8 +4,7 @@ module.exports = {
     browser: true,
     es2021: true,
   },
-  extends: ['airbnb-base', 'prettier'],
-  // parser: 'babel-eslint',
+  extends: ['airbnb-base', 'prettier', 'plugin:react/recommended'],
   ignorePatterns: ['src/reportWebVitals.js'],
   parserOptions: {
     ecmaVersion: 12,
