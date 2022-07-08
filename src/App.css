@@ -1,3 +1,9 @@
 .App {
   text-align: center;
 }
+html,
+body {
+  height: 100%;
+  background: papayawhip;
+  /* overflow-x: hidden; */
+}

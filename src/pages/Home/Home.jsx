@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import useFetch from 'use-http';
+import Section from '../../components/Section/Section.jsx';
 import S from './styles';
 
 const ALCOHOLS = [
@@ -14,31 +15,31 @@ const ALCOHOLS = [
   'Sambuca',
   'Brandy',
 ];
+const getRandomAlcohols = (drinks, numberOfAlcohols = 10) => {
+  const numOfAlcohol = Math.min(numberOfAlcohols, drinks.length - 1);
+  const alcohols = [];
+  // choose 10 random ingredients
+  // eslint-disable-next-line no-plusplus
+  for (let i = 0; i < numOfAlcohol; i++) {
+    const randChosenAlcohol = Math.round(
+      Math.random() * (drinks.length - 1 - 0) + 0
+    );
+    alcohols.push(drinks[randChosenAlcohol].strIngredient1);
+    drinks.splice(randChosenAlcohol, 1);
+  }
+  return alcohols;
+};
+const getQSArgs = (key) => {
+  const params = new Proxy(new URLSearchParams(window.location.search), {
+    get: (searchParams, prop) => searchParams.get(prop),
+  });
+  return params[key];
+};
 export default function Home() {
   const [data, setData] = useState({});
   const { get, response, loading, error } = useFetch(
     'https://www.thecocktaildb.com'
   );
-  const getRandomAlcohols = (drinks, numberOfAlcohols = 10) => {
-    const numOfAlcohol = Math.min(numberOfAlcohols, drinks.length - 1);
-    const alcohols = [];
-    // choose 10 random ingredients
-    // eslint-disable-next-line no-plusplus
-    for (let i = 0; i < numOfAlcohol; i++) {
-      const randChosenAlcohol = Math.round(
-        Math.random() * (drinks.length - 1 - 0) + 0
-      );
-      alcohols.push(drinks[randChosenAlcohol].strIngredient1);
-      drinks.splice(randChosenAlcohol, 1);
-    }
-    return alcohols;
-  };
-  const getQSArgs = (key) => {
-    const params = new Proxy(new URLSearchParams(window.location.search), {
-      get: (searchParams, prop) => searchParams.get(prop),
-    });
-    return params[key]; // "some_value"
-  };
 
   async function loadAlcohol() {
     let alcohols = [];
@@ -58,18 +59,22 @@ export default function Home() {
       alcohols = ALCOHOLS;
     }
     if (alcohols.length > 0) {
-      console.log('alcohols :>> ', alcohols);
-      const alcoholsRequests = alcohols.map((alc) =>
-        get(`/api/json/v1/1/filter.php?i=${alc}`)
-      );
+      const alcoholsDataRequests = [];
+      const alcoholsRequests = alcohols.map((alc) => {
+        alcoholsDataRequests.push(get(`/api/json/v1/1/search.php?i=${alc}`));
+        return get(`/api/json/v1/1/filter.php?i=${alc}`);
+      });
 
       const allCocktails = await Promise.all(alcoholsRequests);
+      const allCocktailsData = await Promise.all(alcoholsDataRequests);
       const cocktailsObject = {};
       // eslint-disable-next-line no-plusplus
       for (let i = 0; i < allCocktails.length; i++) {
-        cocktailsObject[alcohols[i]] = allCocktails[i].drinks.slice(0, 10);
+        cocktailsObject[alcohols[i]] = {
+          drinks: allCocktails[i]?.drinks.slice(0, 10),
+          alcoholPercent: allCocktailsData[i]?.ingredients[0].strABV,
+        };
       }
-      console.log('allCocktails :>> ', cocktailsObject);
       setData(cocktailsObject);
     }
   }
@@ -86,12 +91,12 @@ export default function Home() {
   }
   return (
     <S.Wrapper>
-      {Object.entries(data).map(([key, value], i) => (
+      {Object.entries(data).map(([alcoholName, value], i) => (
         <div key={i}>
-          {key}
-          {value.map((alc) => (
+          <Section title={alcoholName} alcPercentage={value.alcoholPercent} />
+          {/* {value.drinks.map((alc) => (
             <div key={alc.idDrink}>{alc.strDrink}</div>
-          ))}
+          ))} */}
         </div>
       ))}
     </S.Wrapper>
