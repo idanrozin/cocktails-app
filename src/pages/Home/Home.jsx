@@ -93,10 +93,11 @@ export default function Home() {
     <S.Wrapper>
       {Object.entries(data).map(([alcoholName, value], i) => (
         <div key={i}>
-          <Section title={alcoholName} alcPercentage={value.alcoholPercent} />
-          {/* {value.drinks.map((alc) => (
-            <div key={alc.idDrink}>{alc.strDrink}</div>
-          ))} */}
+          <Section
+            title={alcoholName}
+            alcPercentage={value.alcoholPercent}
+            drinks={value.drinks}
+          />
         </div>
       ))}
     </S.Wrapper>
