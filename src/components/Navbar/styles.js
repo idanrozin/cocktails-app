@@ -24,6 +24,7 @@ const ListItem = styled.li`
   &:hover:not(${(props) => !props.selected}) {
     background: #979797;
   }
+  cursor: pointer;
   border-radius: 7px;
   border-bottom: 4px solid transparent;
   ${(props) => selectedTab(props.selected)}
@@ -37,5 +38,3 @@ const ListItem = styled.li`
 `;
 
 export default { List, ListItem, Nav };
-
-// export { Title, Header };
