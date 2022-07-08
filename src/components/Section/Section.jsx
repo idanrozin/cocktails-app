@@ -4,7 +4,6 @@ import S from './styles';
 
 const Section = (props) => {
   const { title, alcPercentage, drinks = [] } = props;
-  console.log('drinks :>> ', drinks);
   return (
     <S.SectionContainer>
       <S.Title>
@@ -14,7 +13,6 @@ const Section = (props) => {
         </S.SubTitle>
       </S.Title>
       {drinks.map((alc) => (
-        // <div key={alc.idDrink}>{alc.strDrink}</div>
         <Card
           key={alc.idDrink}
           drinkName={alc.strDrink}
