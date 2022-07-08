@@ -7,6 +7,7 @@ const Header = styled.header`
   height: 14vh;
   background-color: #7e8696;
   padding: 0 8px;
+  font-size: 2.5em;
 `;
 
 const Title = styled.h1`
@@ -16,6 +17,7 @@ const Title = styled.h1`
 const Logo = styled.img`
   width: 130px;
   aspect-ratio: 1;
+  margin-top: 25px;
 `;
 
 export default { Header, Title, Logo };
