@@ -6,6 +6,7 @@ const Header = styled.header`
   color: white;
   height: 14vh;
   background-color: #7e8696;
+  padding: 0 8px;
 `;
 
 const Title = styled.h1`
