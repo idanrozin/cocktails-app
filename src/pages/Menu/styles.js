@@ -1,6 +1,18 @@
 import styled from 'styled-components';
 import mediaQueries from '../../services/CssUtils';
 
+const MenuPageContainer = styled.div`
+  @media print {
+    button {
+      display: none;
+    }
+    body {
+      font-size: 10pt;
+      margin: 0;
+      padding: 0;
+    }
+  }
+`;
 const MenuItem = styled.div`
   position: relative;
   display: flex;
@@ -42,6 +54,11 @@ const ImagedTitle = styled.div`
     overflow-y: auto;
     padding-right: 8px;
   `)}
+  @media print {
+    flex-direction: column;
+    align-items: center;
+    margin: 0;
+  }
 `;
 
 const Instructions = styled.div`
@@ -49,6 +66,9 @@ const Instructions = styled.div`
   padding: 5px;
   width: 45%;
   font-weight: 600;
+  @media print {
+    margin: 0;
+  }
 `;
 
 const Title = styled.div`
@@ -64,4 +84,11 @@ const CocktailLogo = styled.img`
   ${mediaQueries(`width: 80%`)}
 `;
 
-export default { MenuItem, ImagedTitle, Instructions, Title, CocktailLogo };
+export default {
+  MenuItem,
+  ImagedTitle,
+  Instructions,
+  Title,
+  CocktailLogo,
+  MenuPageContainer,
+};

@@ -20,7 +20,7 @@ const MyCard = (props) => {
       <CardMedia
         component="img"
         alt="green iguana"
-        height="140"
+        height="200"
         image={imgUrl}
       />
       <CardContent>
@@ -44,7 +44,7 @@ const MyCard = (props) => {
           {mainText}
         </Typography>
       </CardContent>
-      <CardActions sx={{ position: 'absolute', top: '85px', right: 0 }}>
+      <CardActions sx={{ position: 'absolute', top: '150px', right: 0 }}>
         <Tooltip title={menuItems[id] ? 'Item Added To Menu' : 'Add To Menu'}>
           <Fab
             size={matches ? 'large' : 'small'}
