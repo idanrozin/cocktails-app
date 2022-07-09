@@ -51,4 +51,14 @@ const Instructions = styled.div`
   font-weight: 600;
 `;
 
-export default { MenuItem, ImagedTitle, Instructions };
+const Title = styled.div`
+  font-size: 2em;
+  font-weight: 650;
+  ${mediaQueries(`font-size: 1.2em;`)}
+`;
+
+const CocktailLogo = styled.img`
+  ${mediaQueries(`width: 80%`)}
+`;
+
+export default { MenuItem, ImagedTitle, Instructions, Title, CocktailLogo };

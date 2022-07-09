@@ -4,6 +4,7 @@ import Tooltip from '@mui/material/Tooltip';
 import PlaylistRemoveIcon from '@mui/icons-material/PlaylistRemove';
 import Section from '../../components/Section/Section.jsx';
 import { useCocktailsContext } from '../../services/CocktailsContext';
+import CocktailsMenu from '../../assets/cocktail-menu.png';
 import S from './styles';
 
 const getIngredients = (drinkItem) => {
@@ -22,10 +23,20 @@ const getIngredients = (drinkItem) => {
 };
 export default function Menu() {
   const [{ menuItems }, { removeMenuItem }] = useCocktailsContext();
-
+  const hasMenuItems = () => Object.keys(menuItems).length > 0;
   return (
     <>
-      <Section title="Your Menu Cocktails" />
+      <Section
+        title={hasMenuItems() ? 'Your Cocktails Menu' : 'No Cocktails Yet..'}
+      />
+      {hasMenuItems() ? null : (
+        <>
+          <S.Title>
+            Start adding cocktails to see your curated special menu
+          </S.Title>
+          <S.CocktailLogo src={CocktailsMenu}></S.CocktailLogo>
+        </>
+      )}
       {Object.values(menuItems).map((item) => (
         <S.MenuItem key={item.idDrink}>
           <Tooltip title={'Remove Item From The Menu'}>

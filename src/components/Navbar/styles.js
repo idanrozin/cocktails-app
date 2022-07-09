@@ -4,7 +4,10 @@ import mediaQueries from '../../services/CssUtils';
 const Nav = styled.nav`
   background-color: #7e8696;
   padding: 10px 4px;
-  ${mediaQueries(`padding: 10px 50px;`)}
+  ${mediaQueries(`
+    padding: 10px 50px;
+    margin: -1px;
+  `)}
 `;
 
 const List = styled.ul`
