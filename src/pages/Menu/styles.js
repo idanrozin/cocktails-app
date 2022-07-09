@@ -54,7 +54,10 @@ const Instructions = styled.div`
 const Title = styled.div`
   font-size: 2em;
   font-weight: 650;
-  ${mediaQueries(`font-size: 1.2em;`)}
+  ${mediaQueries(`
+  font-size: 1.2em;
+  padding: 8px;
+  `)}
 `;
 
 const CocktailLogo = styled.img`
