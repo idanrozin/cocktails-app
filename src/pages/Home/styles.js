@@ -10,7 +10,7 @@ const CardsContainer = styled.div`
   justify-content: center;
   border-top: 1px solid white;
   > * {
-    margin: 60px;
+    margin: 30px 20px;
   }
 `;
 export default { Wrapper, CardsContainer };

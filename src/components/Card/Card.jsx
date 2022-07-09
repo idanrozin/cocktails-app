@@ -11,7 +11,7 @@ import AddIcon from '@mui/icons-material/Add';
 const MyCard = (props) => {
   const { drinkName, imgUrl, instructions } = props;
   return (
-    <Card sx={{ width: 190 }}>
+    <Card sx={{ width: 305, position: 'relative' }}>
       <CardMedia
         component="img"
         alt="green iguana"
@@ -34,12 +34,12 @@ const MyCard = (props) => {
         <Typography
           variant="body2"
           color="text.secondary"
-          sx={{ maxHeight: '220px', overflowY: 'auto' }}
+          sx={{ maxHeight: '160px', overflowY: 'auto', marginBottom: '35px' }}
         >
           {instructions}
         </Typography>
       </CardContent>
-      <CardActions>
+      <CardActions sx={{ position: 'absolute', top: '85px', right: 0 }}>
         <Tooltip title="Add To Menu">
           <Fab color="primary" aria-label="add">
             <AddIcon />
