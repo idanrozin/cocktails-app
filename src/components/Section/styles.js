@@ -9,6 +9,9 @@ const SectionContainer = styled.div`
   margin: 25px 0;
   padding: 0 8px;
   flex-direction: column;
+  @media print {
+    margin: 0;
+  }
 `;
 
 const Title = styled.h1`
