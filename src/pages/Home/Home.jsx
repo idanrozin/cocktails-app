@@ -14,13 +14,11 @@ const ALCOHOLS = [
   'Whiskey',
   'Irish cream',
   'Scotch',
-  'Cognac',
-  'Ouzo',
-  'Sambuca',
+  'Tequila',
+  'Wine',
   'Brandy',
+  'Bourbon',
 ];
-
-const ALCOHOLS_MINI = ['Vodka', 'Gin', 'Rum'];
 
 const getRandomAlcohols = (drinks, numberOfAlcohols = 10) => {
   const numOfAlcohol = Math.min(numberOfAlcohols, drinks.length - 1);
@@ -44,7 +42,7 @@ const getQSArgs = (key) => {
   return params[key];
 };
 
-export default function Home() {
+const HomePage = () => {
   const [{ data }, { setData }] = useCocktailsContext();
   const { get, response, error } = useFetch('https://www.thecocktaildb.com');
   const [loading, setLoading] = useState(true);
@@ -64,9 +62,8 @@ export default function Home() {
         setCaughtError(err);
       }
     } else {
-      alcohols = ALCOHOLS_MINI;
+      alcohols = ALCOHOLS;
     }
-
     if (alcohols.length > 0) {
       const alcoholsDataRequests = [];
       const alcoholsRequests = alcohols.map((alc) => {
@@ -139,4 +136,5 @@ export default function Home() {
       )}
     </S.Wrapper>
   );
-}
+};
+export default HomePage;

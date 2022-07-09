@@ -23,7 +23,7 @@ const getIngredients = (drinkItem) => {
     measures[i] ? measures[i][1] : '',
   ]);
 };
-export default function Menu() {
+const MenuPage = () => {
   const componentRef = useRef();
   const [{ menuItems }, { removeMenuItem }] = useCocktailsContext();
   const hasMenuItems = () => Object.keys(menuItems).length > 0;
@@ -96,4 +96,5 @@ export default function Menu() {
       ))}
     </S.MenuPageContainer>
   );
-}
+};
+export default MenuPage;
