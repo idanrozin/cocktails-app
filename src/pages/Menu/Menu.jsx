@@ -1,21 +1,70 @@
 import React from 'react';
-import styled from 'styled-components';
-// Create a Title component that'll render an <h1> tag with some styles
-const Title = styled.h1`
-  font-size: 1.5em;
-  text-align: center;
-  color: black;
-`;
+import Fab from '@mui/material/Fab';
+import Tooltip from '@mui/material/Tooltip';
+import PlaylistRemoveIcon from '@mui/icons-material/PlaylistRemove';
+import Section from '../../components/Section/Section.jsx';
+import { useCocktailsContext } from '../../services/CocktailsContext';
+import S from './styles';
 
-// Create a Wrapper component that'll render a <section> tag with some styles
-const Wrapper = styled.section`
-  padding: 4em;
-  background: papayawhip;
-`;
+const getIngredients = (drinkItem) => {
+  const getValuesByKey = (key) =>
+    Object.entries(drinkItem).filter(
+      (item) => item[0].indexOf(key) === 0 && item[1]
+    );
+
+  const ingredients = getValuesByKey('strIngredient');
+  const measures = getValuesByKey('strMeasure');
+
+  return ingredients.map((ing, i) => [
+    ing[1],
+    measures[i] ? measures[i][1] : '',
+  ]);
+};
 export default function Menu() {
+  const [{ menuItems }, { removeMenuItem }] = useCocktailsContext();
+
   return (
-    <Wrapper>
-      <Title>Menfgfu</Title>
-    </Wrapper>
+    <>
+      <Section title="Your Menu Cocktails" />
+      {Object.values(menuItems).map((item) => (
+        <S.MenuItem key={item.idDrink}>
+          <Tooltip title={'Remove Item From The Menu'}>
+            <Fab
+              size="small"
+              color="primary"
+              aria-label="add"
+              sx={{
+                position: 'absolute',
+                top: '-12px',
+                right: '-14px',
+              }}
+              onClick={() => removeMenuItem(item.idDrink)}
+            >
+              <PlaylistRemoveIcon />
+            </Fab>
+          </Tooltip>
+          <S.ImagedTitle>
+            <img
+              src={`${item.strDrinkThumb}/preview`}
+              alt={item.strDrink}
+              title={item.strDrink}
+            />
+            <div>
+              <h2>{item.strDrink}</h2>
+              <h4>Ingredients:</h4>
+              <ul>
+                {getIngredients(item).map((ing, i) => (
+                  <li key={i}>
+                    <strong>{ing[0]}</strong>&nbsp;
+                    {ing[1]}
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <S.Instructions>{item.strInstructions}</S.Instructions>
+          </S.ImagedTitle>
+        </S.MenuItem>
+      ))}
+    </>
   );
 }

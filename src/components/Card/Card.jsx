@@ -7,9 +7,12 @@ import Typography from '@mui/material/Typography';
 import Tooltip from '@mui/material/Tooltip';
 import Fab from '@mui/material/Fab';
 import AddIcon from '@mui/icons-material/Add';
+import CheckIcon from '@mui/icons-material/Check';
+import { useCocktailsContext } from '../../services/CocktailsContext';
 
 const MyCard = (props) => {
-  const { drinkName, imgUrl, instructions } = props;
+  const { id, title, imgUrl, mainText } = props;
+  const [{ menuItems }, { addMenuItem }] = useCocktailsContext();
   return (
     <Card sx={{ width: 305, position: 'relative' }}>
       <CardMedia
@@ -22,27 +25,32 @@ const MyCard = (props) => {
         <Typography
           gutterBottom
           component="div"
-          title={drinkName}
+          title={title}
           sx={{
             overflow: 'hidden',
             textOverflow: 'ellipsis',
             fontWeight: 600,
           }}
         >
-          {drinkName}
+          {title}
         </Typography>
         <Typography
           variant="body2"
           color="text.secondary"
           sx={{ maxHeight: '160px', overflowY: 'auto', marginBottom: '35px' }}
         >
-          {instructions}
+          {mainText}
         </Typography>
       </CardContent>
       <CardActions sx={{ position: 'absolute', top: '85px', right: 0 }}>
-        <Tooltip title="Add To Menu">
-          <Fab color="primary" aria-label="add">
-            <AddIcon />
+        <Tooltip title={menuItems[id] ? 'Item Added To Menu' : 'Add To Menu'}>
+          <Fab
+            color={menuItems[id] ? 'grey' : 'primary'}
+            aria-label="add"
+            onClick={() => addMenuItem(id)}
+            sx={{ cursor: menuItems[id] ? 'default' : 'pointer' }}
+          >
+            {menuItems[id] ? <CheckIcon /> : <AddIcon />}
           </Fab>
         </Tooltip>
       </CardActions>

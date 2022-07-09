@@ -38,7 +38,7 @@ const getQSArgs = (key) => {
   return params[key];
 };
 export default function Home() {
-  const [data, setData] = useCocktailsContext();
+  const [{ data }, { setData }] = useCocktailsContext();
   const { get, response, loading, error } = useFetch(
     'https://www.thecocktaildb.com'
   );
@@ -96,13 +96,20 @@ export default function Home() {
     <S.Wrapper>
       {Object.entries(data).map(
         ([alcoholName, { alcoholPercent, drinks = [] }], i) => (
-          <Section key={i} title={alcoholName} alcPercentage={alcoholPercent}>
+          <Section
+            key={i}
+            title={alcoholName}
+            subTitle={
+              alcoholPercent ? `${alcoholPercent}%` : 'alc % not available'
+            }
+          >
             <S.CardsContainer>
               {drinks.map((alc) => (
                 <Card
                   key={alc.idDrink}
-                  drinkName={alc.strDrink}
-                  instructions={alc.strInstructions}
+                  id={alc.idDrink}
+                  title={alc.strDrink}
+                  mainText={alc.strInstructions}
                   imgUrl={alc.strDrinkThumb}
                 />
               ))}

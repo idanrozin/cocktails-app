@@ -4,6 +4,7 @@ const SectionContainer = styled.div`
   display: flex;
   color: white;
   background-color: #ff76762e;
+  border-radius: 12px;
   margin: 25px 0;
   padding: 0 8px;
   flex-direction: column;
