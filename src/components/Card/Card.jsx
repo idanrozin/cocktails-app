@@ -3,21 +3,15 @@ import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
-import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
-// import S from './styles';
+import Tooltip from '@mui/material/Tooltip';
+import Fab from '@mui/material/Fab';
+import AddIcon from '@mui/icons-material/Add';
 
 const MyCard = (props) => {
-  const { drinkName, imgUrl } = props;
+  const { drinkName, imgUrl, instructions } = props;
   return (
-    // console.log('object :>> ', object);
-    // return (
-    //   <S.SectionContainer>
-    //     <S.Title>{drinkName}</S.Title>
-    //     <S.Image alt="cocktail-image" src={imgUrl} />
-    //   </S.SectionContainer>
-    // );
-    <Card sx={{ maxWidth: 190 }}>
+    <Card sx={{ width: 190 }}>
       <CardMedia
         component="img"
         alt="green iguana"
@@ -25,13 +19,32 @@ const MyCard = (props) => {
         image={imgUrl}
       />
       <CardContent>
-        <Typography gutterBottom variant="h5" component="div">
+        <Typography
+          gutterBottom
+          component="div"
+          title={drinkName}
+          sx={{
+            overflow: 'hidden',
+            textOverflow: 'ellipsis',
+            fontWeight: 600,
+          }}
+        >
           {drinkName}
+        </Typography>
+        <Typography
+          variant="body2"
+          color="text.secondary"
+          sx={{ maxHeight: '220px', overflowY: 'auto' }}
+        >
+          {instructions}
         </Typography>
       </CardContent>
       <CardActions>
-        <Button size="small">Share</Button>
-        <Button size="small">Learn More</Button>
+        <Tooltip title="Add To Menu">
+          <Fab color="primary" aria-label="add">
+            <AddIcon />
+          </Fab>
+        </Tooltip>
       </CardActions>
     </Card>
   );
