@@ -1,5 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import useFetch from 'use-http';
+import { useCocktailsContext } from '../../services/CocktailsContext';
 import Section from '../../components/Section/Section.jsx';
 import Card from '../../components/Card/Card.jsx';
 import S from './styles';
@@ -37,7 +38,7 @@ const getQSArgs = (key) => {
   return params[key];
 };
 export default function Home() {
-  const [data, setData] = useState({});
+  const [data, setData] = useCocktailsContext();
   const { get, response, loading, error } = useFetch(
     'https://www.thecocktaildb.com'
   );
