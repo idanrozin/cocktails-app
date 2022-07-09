@@ -5,5 +5,19 @@ html,
 body {
   height: 100%;
   background: papayawhip;
-  /* overflow-x: hidden; */
+}
+
+*::-webkit-scrollbar {
+  width: 0.45em;
+}
+
+
+*::-webkit-scrollbar-track {
+  display: none;
+}
+
+
+*::-webkit-scrollbar-thumb {
+  border-radius: 5px;
+  background-color: rgb(120 118 118 / 50%);
 }

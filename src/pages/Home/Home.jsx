@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import useFetch from 'use-http';
 import Section from '../../components/Section/Section.jsx';
+import Card from '../../components/Card/Card.jsx';
 import S from './styles';
-
-const ALCOHOLS = [
+/* const ALCOHOLS = [
   'Vodka',
   'Gin',
   'Rum',
@@ -14,7 +14,8 @@ const ALCOHOLS = [
   'Ouzo',
   'Sambuca',
   'Brandy',
-];
+]; */
+const ALCOHOLS_MINI = ['Vodka', 'Gin', 'Rum'];
 const getRandomAlcohols = (drinks, numberOfAlcohols = 10) => {
   const numOfAlcohol = Math.min(numberOfAlcohols, drinks.length - 1);
   const alcohols = [];
@@ -48,7 +49,6 @@ export default function Home() {
         const alcoholTypes = await get('/api/json/v1/1/list.php?i=list');
         if (response.ok) {
           alcohols = getRandomAlcohols(alcoholTypes.drinks);
-          console.log('alcohols :>> ', alcohols);
         } else {
           //
         }
@@ -56,17 +56,18 @@ export default function Home() {
         console.error(err);
       }
     } else {
-      alcohols = ALCOHOLS;
+      alcohols = ALCOHOLS_MINI;
     }
     if (alcohols.length > 0) {
       const alcoholsDataRequests = [];
       const alcoholsRequests = alcohols.map((alc) => {
         alcoholsDataRequests.push(get(`/api/json/v1/1/search.php?i=${alc}`));
-        return get(`/api/json/v1/1/filter.php?i=${alc}`);
+        return get(`/api/json/v1/1/search.php?s=${alc}`);
       });
 
       const allCocktails = await Promise.all(alcoholsRequests);
       const allCocktailsData = await Promise.all(alcoholsDataRequests);
+
       const cocktailsObject = {};
       // eslint-disable-next-line no-plusplus
       for (let i = 0; i < allCocktails.length; i++) {
@@ -75,6 +76,7 @@ export default function Home() {
           alcoholPercent: allCocktailsData[i]?.ingredients[0].strABV,
         };
       }
+
       setData(cocktailsObject);
     }
   }
@@ -82,7 +84,7 @@ export default function Home() {
     loadAlcohol();
   }, []);
 
-  if (loading) {
+  if (loading && Object.keys(data).length === 0) {
     return <S.Wrapper>Loading... Please Wait</S.Wrapper>;
   }
   if (error) {
@@ -91,15 +93,22 @@ export default function Home() {
   }
   return (
     <S.Wrapper>
-      {Object.entries(data).map(([alcoholName, value], i) => (
-        <div key={i}>
-          <Section
-            title={alcoholName}
-            alcPercentage={value.alcoholPercent}
-            drinks={value.drinks}
-          />
-        </div>
-      ))}
+      {Object.entries(data).map(
+        ([alcoholName, { alcoholPercent, drinks = [] }], i) => (
+          <Section key={i} title={alcoholName} alcPercentage={alcoholPercent}>
+            <S.CardsContainer>
+              {drinks.map((alc) => (
+                <Card
+                  key={alc.idDrink}
+                  drinkName={alc.strDrink}
+                  instructions={alc.strInstructions}
+                  imgUrl={alc.strDrinkThumb}
+                />
+              ))}
+            </S.CardsContainer>
+          </Section>
+        )
+      )}
     </S.Wrapper>
   );
 }
