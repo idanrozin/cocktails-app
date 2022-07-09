@@ -1,8 +1,10 @@
 import styled from 'styled-components';
+import mediaQueries from '../../services/CssUtils';
 
 const Nav = styled.nav`
   background-color: #7e8696;
   padding: 10px 4px;
+  ${mediaQueries(`padding: 10px 50px;`)}
 `;
 
 const List = styled.ul`

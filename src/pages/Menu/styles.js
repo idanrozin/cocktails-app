@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import mediaQueries from '../../services/CssUtils';
 
 const MenuItem = styled.div`
   position: relative;
@@ -11,12 +12,16 @@ const MenuItem = styled.div`
   margin: 24px auto;
   box-shadow: 0px 0px 11px 9px #43434354;
   padding: 24px;
+  ${mediaQueries(`padding: 30px;`)}
 `;
 
 const ImagedTitle = styled.div`
   display: flex;
   justify-content: center;
   align-items: start;
+  h2 {
+    text-transform: uppercase;
+  }
   h2,
   h4 {
     text-align: start;
@@ -30,6 +35,13 @@ const ImagedTitle = styled.div`
     text-align: start;
     margin-top: 8px;
   }
+  ${mediaQueries(`
+   flex-direction: column;    
+    max-height: 500px;
+    justify-content: flex-start;
+    overflow-y: auto;
+    padding-right: 8px;
+  `)}
 `;
 
 const Instructions = styled.div`

@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import mediaQueries from '../../services/CssUtils';
 
 const SectionContainer = styled.div`
   display: flex;
@@ -14,6 +15,7 @@ const Title = styled.h1`
   color: #242946;
   font-size: 2.5em;
   margin: 15px;
+  ${mediaQueries(`font-size: 1.5em;`)}
 `;
 const SubTitle = styled.span`
   color: #242946;

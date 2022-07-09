@@ -8,11 +8,13 @@ import Tooltip from '@mui/material/Tooltip';
 import Fab from '@mui/material/Fab';
 import AddIcon from '@mui/icons-material/Add';
 import CheckIcon from '@mui/icons-material/Check';
+import useMediaQuery from '@mui/material/useMediaQuery';
 import { useCocktailsContext } from '../../services/CocktailsContext';
 
 const MyCard = (props) => {
   const { id, title, imgUrl, mainText } = props;
   const [{ menuItems }, { addMenuItem }] = useCocktailsContext();
+  const matches = useMediaQuery('(min-width:600px)');
   return (
     <Card sx={{ width: 305, position: 'relative' }}>
       <CardMedia
@@ -45,6 +47,7 @@ const MyCard = (props) => {
       <CardActions sx={{ position: 'absolute', top: '85px', right: 0 }}>
         <Tooltip title={menuItems[id] ? 'Item Added To Menu' : 'Add To Menu'}>
           <Fab
+            size={matches ? 'large' : 'small'}
             color={menuItems[id] ? 'grey' : 'primary'}
             aria-label="add"
             onClick={() => addMenuItem(id)}

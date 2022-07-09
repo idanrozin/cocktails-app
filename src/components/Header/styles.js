@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import mediaQueries from '../../services/CssUtils';
 
 const Header = styled.header`
   display: flex;
@@ -8,6 +9,10 @@ const Header = styled.header`
   background-color: #7e8696;
   padding: 0 8px;
   font-size: 2.5em;
+  ${mediaQueries(
+    `font-size: 1em;
+    margin: -1px;`
+  )}
 `;
 
 const Title = styled.h1`
@@ -21,5 +26,3 @@ const Logo = styled.img`
 `;
 
 export default { Header, Title, Logo };
-
-// export { Title, Header };

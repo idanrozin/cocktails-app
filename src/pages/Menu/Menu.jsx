@@ -55,7 +55,7 @@ export default function Menu() {
               <ul>
                 {getIngredients(item).map((ing, i) => (
                   <li key={i}>
-                    <strong>{ing[0]}</strong>&nbsp;
+                    <strong>{ing[0]}</strong>&nbsp;-&nbsp;
                     {ing[1]}
                   </li>
                 ))}
