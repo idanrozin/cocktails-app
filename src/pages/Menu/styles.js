@@ -2,14 +2,10 @@ import styled from 'styled-components';
 import mediaQueries from '../../services/CssUtils';
 
 const MenuPageContainer = styled.div`
+  padding-bottom: 28px;
   @media print {
     button {
       display: none;
-    }
-    body {
-      font-size: 10pt;
-      margin: 0;
-      padding: 0;
     }
   }
 `;

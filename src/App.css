@@ -21,3 +21,11 @@ body {
   border-radius: 5px;
   background-color: rgb(120 118 118 / 50%);
 }
+@media print {
+  body {
+    background-color: white;
+    font-size: 10pt;
+    margin: 0;
+    padding: 0;
+  }
+}
